@@ -6,5 +6,4 @@ package communicate;
  *
  */
 public class Sender extends Thread {
-	private 
 }
