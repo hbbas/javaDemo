@@ -11,38 +11,33 @@ import java.net.UnknownHostException;
  * @author hbbas
  *
  */
-public class Sender extends Thread {
+public class Sender {
 	private DatagramSocket sendData;
 	private String message;
 	private DatagramPacket messPackage;
 	private InetAddress add;
 	private int port;
-	
-	public Sender(String message, String add, int port) throws UnknownHostException   {
-		this.message=message;
-		this.add= InetAddress.getByName(add);
+
+	public Sender(int port) throws UnknownHostException   {
+		this.add= InetAddress.getByName( "10.180.179.76");
 		this.port=port;
 	}
 	/*
 	 * 此方法发送数据
 	 */
-	public void send() throws IOException {
-		sendData= new DatagramSocket();
-		messPackage=new DatagramPacket(message.getBytes(),message.length(),add,port);
-		sendData.send(messPackage);
-	}
+	public void send() {
 
-	
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		super.run();
 		try {
-			send();
+			sendData= new DatagramSocket();
+			messPackage=new DatagramPacket(message.getBytes(),message.length(),add,port);
+			sendData.send(messPackage);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			// TODO 自动生成的 catch 块
 			e.printStackTrace();
 		}
-		
+	}
+
+	public void setMessage(String message){
+		this.message=message;
 	}
 }

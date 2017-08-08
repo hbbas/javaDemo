@@ -10,7 +10,6 @@ import java.util.Iterator;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -25,18 +24,20 @@ public class Screen implements ActionListener{
 		private JTextArea area = new JTextArea(8,30) ; // 定义文本区
 		private JFrame frame = new JFrame("欢迎进入许老师课题组") ;
 		private JButton send = new JButton("发送") ;
-		private JLabel label = new JLabel("置顶内容：") ;
+		private JTextArea input = new JTextArea(1,30) ; 
 		private JPanel butPan = new JPanel();
 		private ArrayList<String> chatHis;
+		private Sender sender;
 
 		public Screen(ArrayList<String> chatHis){
-			
+			area.setEditable(false);
+			area.setLineWrap(true);
 			this.chatHis = chatHis;
 			this.butPan.add(send) ; // 在面板中加入按钮
 			this.frame.setLayout(new BorderLayout(3,3)) ;
-			this.frame.add(this.label,BorderLayout.NORTH) ;
+			this.frame.add(this.input,BorderLayout.CENTER) ;
 			this.frame.add(this.butPan,BorderLayout.SOUTH) ;
-			this.frame.add(new JScrollPane(this.area),BorderLayout.CENTER) ;
+			this.frame.add(new JScrollPane(this.area),BorderLayout.NORTH) ;
 			this.frame.setSize(630,280) ;
 			this.frame.setVisible(true) ;
 			this.frame.addWindowListener(
@@ -53,7 +54,11 @@ public class Screen implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()==this.send){ 
-				area.setText(this.getText(chatHis));
+				String inputm=input.getText( );
+				sender.setMessage(inputm);
+				sender.send();
+				chatHis.add(inputm);
+				this.setText();
 			}
 	
 		}
@@ -64,11 +69,19 @@ public class Screen implements ActionListener{
 			StringBuilder sb= new StringBuilder();
 			Iterator<String> iter=strA.iterator();
 			while(iter.hasNext()) {
-				sb.append("\\n");
 				sb.append(iter.next());
+				sb.append("\r\n");
 			}
 			
 			return sb.toString();
+		}
+		
+		public void setText(){
+			area.setText(this.getText(chatHis));
+		}
+		
+		public void setSender(Sender sender){
+			this.sender=sender;
 		}
 
 }
