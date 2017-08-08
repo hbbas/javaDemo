@@ -38,7 +38,7 @@ public class CollectImage {
 			}
 			
 			cll.srcFile=note.getSrc().listFiles();
-			cll.resFile=new File((note.getRes().getPath())+"result.jpg");	
+			cll.resFile=new File((note.getRes().getPath())+"\\result.jpg");	
 		}
 			cll.dim=note.getDim();
 			cll.pon=note.getPos();
