@@ -25,25 +25,26 @@ public class CollectImage {
 	public static void main(String[] args) throws IOException {
 		// TODO 自动生成的方法存根
 		
-//		cll.config();
+		//		cll.config();
 		Note note=new Note();
-		
 		CollectImage cll=new CollectImage();
-		synchronized (note) {
-			try {
-				note.wait();
-			} catch (InterruptedException e) {
-				// TODO 自动生成的 catch 块
-				e.printStackTrace();
+		while (true) {
+			synchronized (note) {
+				try {
+					note.wait();
+				} catch (InterruptedException e) {
+					// TODO 自动生成的 catch 块
+					e.printStackTrace();
+				}
+
+				cll.srcFile=note.getSrc().listFiles();
+				cll.resFile=new File((note.getRes().getPath())+"\\result.jpg");	
 			}
-			
-			cll.srcFile=note.getSrc().listFiles();
-			cll.resFile=new File((note.getRes().getPath())+"\\result.jpg");	
-		}
 			cll.dim=note.getDim();
 			cll.pon=note.getPos();
-//		System.out.println(cll.dim.width+cll.pon.toString());
-		cll.imageOp(cll.srcFile, cll.pon, cll.dim, cll.resFile);
+			//		System.out.println(cll.dim.width+cll.pon.toString());
+			cll.imageOp(cll.srcFile, cll.pon, cll.dim, cll.resFile);
+		}
 	}
 
 	public void config(){
@@ -86,6 +87,11 @@ public class CollectImage {
 	    	iis.close();
 	    }
 	    BufferedImage result=new BufferedImage(width, heigth, BufferedImage.TYPE_INT_RGB); //构建大的图片基底
+	    int[ ] backGround=new int[width*heigth];
+	    for(int i=0;i<backGround.length;i++) {
+	    	backGround[i]=Integer.MAX_VALUE;
+	    }
+	    result.setRGB(0, 0, width, heigth, backGround, 0, dim.width);//设置基底为白色
 	    
 	    int rowCount=0;
 	    int sx=0,sy=0;

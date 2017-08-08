@@ -32,6 +32,7 @@ class Note implements ActionListener{
 	private JButton open = new JButton("设置处理路径") ;
 	private JButton save = new JButton("设置结果路径") ;
 	private JButton pos1 = new JButton("设置坐标") ;
+	private JButton start = new JButton("开始拼合") ;
 	private JLabel label = new JLabel("一.输入坐标和宽度高度以空格分隔如 0 0 0 0 二.请分别选择结果路径和处理路径") ;
 	private JPanel butPan = new JPanel() ;
 
@@ -40,6 +41,7 @@ class Note implements ActionListener{
 		this.butPan.add(open) ; // 在面板中加入按钮
 		this.butPan.add(save) ; // 在面板中加入按钮
 		this.butPan.add(pos1) ; // 在面板中加入按钮
+		this.butPan.add(start) ; // 在面板中加入按钮
 		this.frame.setLayout(new BorderLayout(3,3)) ;
 		this.frame.add(this.label,BorderLayout.NORTH) ;
 		this.frame.add(this.butPan,BorderLayout.SOUTH) ;
@@ -56,6 +58,7 @@ class Note implements ActionListener{
 		this.open.addActionListener(this) ;
 		this.save.addActionListener(this) ;
 		this.pos1.addActionListener(this) ;
+		this.start.addActionListener(this) ;
 	}
 
 	public void actionPerformed(ActionEvent e){
@@ -91,7 +94,8 @@ class Note implements ActionListener{
 				file = fileChooser.getSelectedFile() ; // 得到选择的文件
 				this.label.setText("打开的路径为： " + file.getPath()) ;
 			}else if(result==JFileChooser.CANCEL_OPTION){
-				this.label.setText("没有选择任何文件") ;
+				this.label.setText("没有选择任何文件 ,默认为保存路径") ;
+				res=src;
 			}else{
 				this.label.setText("操作出现错误") ;
 			}
@@ -101,16 +105,18 @@ class Note implements ActionListener{
 			}
 		}
 
-		if(e.getSource()==this.pos1){ // 判断是否是保存操作
+		if(e.getSource()==this.pos1){ // 判断是否是坐标操作
 			this.posdim=this.area.getText();
-			System.out.println(this.area.getText());
+			//System.out.println(this.area.getText());
 		}
 		//System.out.println(src.toString()+res+posdim);
-		if(src!=null&&res!=null&&posdim!=null){
-			synchronized (this) {
-				this.notifyAll();
+		if(e.getSource()==this.start){ // 判断是否是保存操作
+			if(src!=null&&res!=null&&posdim!=null){
+				synchronized (this) {
+					this.notifyAll();
+				}
 			}
-
+			//System.out.println(src.toString()+res+posdim);
 		}		
 	}
 	public File getRes(){
