@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.net.UnknownHostException;
 
 /**
@@ -12,14 +13,14 @@ import java.net.UnknownHostException;
  *
  */
 public class Sender {
-	private DatagramSocket sendData;
+	private MulticastSocket sendData;
 	private String message;
 	private DatagramPacket messPackage;
 	private InetAddress add;
 	private int port;
 
-	public Sender(int port) throws UnknownHostException   {
-		this.add= InetAddress.getByName( "10.180.80.42");
+	public Sender(InetAddress add,int port) throws UnknownHostException   {
+		this.add=add;
 		this.port=port;
 	}
 	/*
@@ -28,7 +29,9 @@ public class Sender {
 	public void send() {
 
 		try {
-			sendData= new DatagramSocket();
+			sendData= new MulticastSocket();
+			sendData.joinGroup(add);
+			sendData.setLoopbackMode(true);
 			messPackage=new DatagramPacket(message.getBytes(),message.getBytes().length,add,port);
 			sendData.send(messPackage);
 		} catch (IOException e) {

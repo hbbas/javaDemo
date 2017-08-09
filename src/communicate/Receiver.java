@@ -3,6 +3,8 @@ package communicate;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
 import java.util.ArrayList;
  
 
@@ -12,7 +14,7 @@ import java.util.ArrayList;
  *
  */
 public class Receiver extends Thread {
-	private DatagramSocket recSoc;
+	private MulticastSocket recSoc;
 	private DatagramPacket messPackage;
 	private int port;
 	ArrayList<String> chatHis;
@@ -25,7 +27,8 @@ public class Receiver extends Thread {
 		this.port= port;
 		messPackage = dataP;
 		this.chatHis=chatHis;
-		recSoc = new DatagramSocket( port);
+		recSoc = new MulticastSocket( this.port);
+		recSoc.setLoopbackMode(true);
 	}
 	/*
 	 * 此方法发送数据
@@ -39,6 +42,14 @@ public class Receiver extends Thread {
 	 */
 	public void setScreen( Screen screen){
 		this.screen=screen;
+	}
+	public void setGroup( InetAddress add){
+		try {
+			recSoc.joinGroup(add);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override

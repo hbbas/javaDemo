@@ -21,13 +21,14 @@ import javax.swing.JTextArea;
  */
 public class Screen implements ActionListener{
 
-		private JTextArea area = new JTextArea(8,30) ; // 定义文本区
+		private JTextArea area = new JTextArea(15,30) ; // 定义文本区
 		private JFrame frame = new JFrame("欢迎进入许老师课题组") ;
 		private JButton send = new JButton("发送") ;
 		private JTextArea input = new JTextArea(1,30) ; 
 		private JPanel butPan = new JPanel();
 		private ArrayList<String> chatHis;
 		private Sender sender;
+		private String name;
 
 		public Screen(ArrayList<String> chatHis){
 			area.setEditable(false);
@@ -38,7 +39,7 @@ public class Screen implements ActionListener{
 			this.frame.add(this.input,BorderLayout.CENTER) ;
 			this.frame.add(this.butPan,BorderLayout.SOUTH) ;
 			this.frame.add(new JScrollPane(this.area),BorderLayout.NORTH) ;
-			this.frame.setSize(630,280) ;
+			this.frame.setSize(300,380) ;
 			this.frame.setVisible(true) ;
 			this.frame.addWindowListener(
 					new WindowAdapter() {
@@ -54,7 +55,7 @@ public class Screen implements ActionListener{
 		@Override
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()==this.send){ 
-				String inputm=input.getText( );
+				String inputm=name+" :  "+input.getText( );
 				input.setText("");
 				sender.setMessage(inputm);
 				sender.send();
@@ -86,6 +87,11 @@ public class Screen implements ActionListener{
 		
 		public void setSender(Sender sender){
 			this.sender=sender;
+		}
+
+
+		public void setName(String name) {
+			this.name = name;
 		}
 
 }
