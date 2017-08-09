@@ -24,7 +24,7 @@ public class Sender {
 		this.port=port;
 	}
 	/*
-	 * 此方法发送数据
+	 * 此方法发送数据 
 	 */
 	public void send() {
 

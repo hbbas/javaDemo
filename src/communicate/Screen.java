@@ -66,7 +66,7 @@ public class Screen implements ActionListener{
 		}
 		/*
 		 * 用来获取chatHis中的历史记录整理成加上换行符号的String
-		 */
+		 */ 
 		public String getText(ArrayList<String> strA) {
 			StringBuilder sb= new StringBuilder();
 			Iterator<String> iter=strA.iterator();

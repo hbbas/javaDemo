@@ -23,7 +23,7 @@ public class Starter {
 		HashMap<String,String> mem;//存储用户和ip地址映射
 		String name;
 		
-		//初始化资源
+		//初始化资源 
 		Screen screen = new Screen(chatHis);
 		messPackage= new DatagramPacket(new byte[1024],1023);
 		add= InetAddress.getByName( "224.0.0.2");

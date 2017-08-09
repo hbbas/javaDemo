@@ -32,7 +32,7 @@ public class Receiver extends Thread {
 	}
 	/*
 	 * 此方法发送数据
-	 */
+	 */ 
 	public void receive(DatagramPacket recPackge) throws IOException  {
 		
 		recSoc.receive(recPackge);
