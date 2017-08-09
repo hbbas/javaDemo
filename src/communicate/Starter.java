@@ -21,7 +21,7 @@ public class Starter {
 		DatagramPacket messPackage;//接收的数据包
 		ArrayList<String> chatHis=new ArrayList<String>();//聊天记录存储区
 		HashMap<String,String> mem;//存储用户和ip地址映射
-		String name;
+		String name="匿名";
 		
 		//初始化资源 
 		Screen screen = new Screen(chatHis);
