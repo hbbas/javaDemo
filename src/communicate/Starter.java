@@ -32,7 +32,8 @@ public class Starter {
 		mem.put("","");
 		mem.put("","");
 		mem.put("","");
-		name=mem.get( InetAddress.getLocalHost().getHostAddress());
+		if(mem.get( InetAddress.getLocalHost().getHostAddress())!=null)
+		name=mem.get( InetAddress.getLocalHost().getHostAddress()) ;
 		//≈‰÷√receiver∫Õsender∫Õscreen
 		Sender sender= new Sender(add,port);
 
