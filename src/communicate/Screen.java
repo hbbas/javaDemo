@@ -55,6 +55,7 @@ public class Screen implements ActionListener{
 		public void actionPerformed(ActionEvent e){
 			if(e.getSource()==this.send){ 
 				String inputm=input.getText( );
+				input.setText("");
 				sender.setMessage(inputm);
 				sender.send();
 				chatHis.add(inputm);
@@ -70,14 +71,17 @@ public class Screen implements ActionListener{
 			Iterator<String> iter=strA.iterator();
 			while(iter.hasNext()) {
 				sb.append(iter.next());
-				sb.append("\r\n");
+				sb.append("\n");
 			}
 			
 			return sb.toString();
 		}
 		
 		public void setText(){
-			area.setText(this.getText(chatHis));
+			String tem=this.getText(chatHis);
+			area.setText("");
+			area.setText(tem);
+			area.setCaretPosition(tem.length());
 		}
 		
 		public void setSender(Sender sender){

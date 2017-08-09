@@ -21,16 +21,17 @@ public class Receiver extends Thread {
 	/*
 	 * 给定一个端口号和一个接受的datagramPackage，构造本对象
 	 */
-	public Receiver(ArrayList<String> chatHis,DatagramPacket dataP,int port)   {
+	public Receiver(ArrayList<String> chatHis,DatagramPacket dataP,int port)  throws IOException {
 		this.port= port;
 		messPackage = dataP;
 		this.chatHis=chatHis;
+		recSoc = new DatagramSocket( port);
 	}
 	/*
 	 * 此方法发送数据
 	 */
-	public void receive(DatagramPacket recPackge) throws IOException {
-		recSoc = new DatagramSocket( port);
+	public void receive(DatagramPacket recPackge) throws IOException  {
+		
 		recSoc.receive(recPackge);
 	}
 

@@ -19,7 +19,7 @@ public class Sender {
 	private int port;
 
 	public Sender(int port) throws UnknownHostException   {
-		this.add= InetAddress.getByName( "10.180.179.76");
+		this.add= InetAddress.getByName( "10.180.80.42");
 		this.port=port;
 	}
 	/*
@@ -29,7 +29,7 @@ public class Sender {
 
 		try {
 			sendData= new DatagramSocket();
-			messPackage=new DatagramPacket(message.getBytes(),message.length(),add,port);
+			messPackage=new DatagramPacket(message.getBytes(),message.getBytes().length,add,port);
 			sendData.send(messPackage);
 		} catch (IOException e) {
 			// TODO 自动生成的 catch 块
